@@ -78,6 +78,7 @@ implements ActionListener {
         {        
             timer.stop();
             statusbar.setVisible(false);
+            System.out.println("* * * Processing Complete * * *");
         }
 
         repaint();

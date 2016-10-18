@@ -44,10 +44,10 @@ public class SwingFrame extends JFrame
     public static void main(String[] args) 
     {
         oct = 0;
-        iterations = 500;
-        centreX = -1.108;
-        centreY = 0.230;
-        scale = 200000;
+        iterations = 100;
+        centreX = -0.5;
+        centreY = 0;
+        scale = 500;
 
         if (args.length > 0) oct = Integer.parseInt(args[0]);
         if (args.length > 1) iterations = Integer.parseInt(args[1]);
