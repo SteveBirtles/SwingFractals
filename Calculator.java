@@ -20,16 +20,19 @@ class Calculator extends Thread
 
         switch (oct)
         {
-            case 1: x0 -= 2 * 1280; y0 -= 1024;     x1 -= 2 * 1280; y1 -= 1024;     break;
-            case 3: x0 -= 1280;     y0 -= 1024;     x1 -= 1280;     y1 -= 1024;     break;
-            case 5:                 y0 -= 1024;                     y1 -= 1024;     break;
-            case 7: x0 += 1280;     y0 -= 1024;     x1 += 1280;     y1 -= 1024;     break;
+            case 1: x0 -= 1280;     y0 -= 1024;     x1 -= 1280;     y1 -= 1024;     break;
+            case 3:                 y0 -= 1024;                     y1 -= 1024;     break;
+            case 5: x0 += 1280;     y0 -= 1024;     x1 += 1280;     y1 -= 1024;     break;
+            case 7: x0 += 2 * 1280; y0 -= 1024;     x1 += 2 * 1280; y1 -= 1024;     break;
 
-            case 2: x0 -= 2 * 1280;                 x1 -= 2 * 1280;                 break;
-            case 4: x0 -= 1280;                     x1 -= 1280;                     break;
-            case 6:                                                                 break;
-            case 8: x0 += 1280;                     x1 += 1280;                     break;
+            case 2: x0 -= 1280;                     x1 -= 1280;                     break;
+            case 4:                                                                 break;
+            case 6: x0 += 1280;                     x1 += 1280;                     break;
+            case 8: x0 += 2 * 1280;                 x1 += 2 * 1280;                 break;
         }
+
+        x0 -= 640;
+        x1 -= 640;
 
         pixel = inpixel;
         step = instep;
@@ -43,7 +46,7 @@ class Calculator extends Thread
         {
             for (double y = y0; y < y1; y += step)
             {
-                
+
                 double xi = x / 2000.0;
                 double yi = y / 2000.0;
 
