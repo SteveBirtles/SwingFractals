@@ -96,7 +96,14 @@ implements ActionListener {
         {
             for (int y = 0; y < 1024; y++)
             {
-                color = new Color(pixel[x][y], pixel[x][y], pixel[x][y]);
+                double z = (double) pixel[x][y] / 256.0;
+                if (z < 1)      {           color = new Color((int) (256 * z), 0, 0); }
+                else if (z < 2) {z -= 1;    color = new Color(255, (int) (255 * z), 0);}
+                else if (z < 3) {z -= 2;    color = new Color((int) (255 * (1 - z)), 255, 0);}
+                else if (z < 4) {z -= 3;    color = new Color(0, 255, (int) (255 * z));}
+                else if (z < 5) {z -= 4;    color = new Color(0, (int) (255 * (1 - z)), 255);}
+                else            {z -= 5;    color = new Color(0, 0, (int) (255 * (1 - z)));}          
+
                 image.setRGB(x, y, color.getRGB());                
             }
         }

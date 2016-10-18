@@ -43,8 +43,9 @@ class Calculator extends Thread
         {
             for (double y = y0; y < y1; y += step)
             {
-                double xi = x / 1024.0;
-                double yi = y / 1024.0;
+                
+                double xi = x / 2000.0;
+                double yi = y / 2000.0;
 
                 Complex z=new Complex(0,0);
                 Complex c=new Complex(xi,yi);
@@ -58,7 +59,7 @@ class Calculator extends Thread
                 {
                     for (int v = 0; v < step; v++)
                     {
-                        pixel[(int) x - x0 + u + xx][(int) y - y0 + v + yy] = i;
+                        pixel[(int) x - x0 + u + xx][(int) y - y0 + v + yy] = i * 6;
                     }
                 }
 
