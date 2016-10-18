@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.util.Random;
+import java.awt.image.BufferedImage;
 
 public class SwingPanel extends JPanel 
 implements ActionListener {
@@ -16,17 +17,22 @@ implements ActionListener {
     private Timer timer;
     private JLabel statusbar;
     private Random rnd;
+    private int step = 128;
+    private int oct;
 
-    public SwingPanel(SwingFrame parent) 
+    public int pixel[][] = new int[1280][1024];
+
+    public SwingPanel(SwingFrame parent, int inoct) 
     {
         initSwingPanel(parent);
         rnd = new Random();
+        oct = inoct;
     }
 
     private void initSwingPanel(SwingFrame parent) 
     {
         setFocusable(true);
-        timer = new Timer(17, this);
+        timer = new Timer(0, this);
         timer.start(); 
 
         statusbar =  parent.getStatusBar();
@@ -36,7 +42,41 @@ implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) 
     {
+        Thread quarter1 = new Calculator(oct, 1, pixel, step);
+        Thread quarter2 = new Calculator(oct, 2, pixel, step);
+        Thread quarter3 = new Calculator(oct, 3, pixel, step);
+        Thread quarter4 = new Calculator(oct, 4, pixel, step);
+
+        quarter1.start();
+        quarter2.start();
+        quarter3.start();
+        quarter4.start();
+        try
+        {
+            quarter1.join();
+            quarter2.join();
+            quarter3.join();
+            quarter4.join();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+
+        statusbar.setText("Calculating " + (int) (100.0 / 128 * 1/((double) step / 128)) + "%");
+
+        if (step > 1)
+        {
+            step /= 2;
+        }
+        else
+        {        
+            timer.stop();
+            statusbar.setVisible(false);
+        }
+
         repaint();
+
     }
 
     public void start()  
@@ -45,17 +85,25 @@ implements ActionListener {
     }
 
     private void doDrawing(Graphics g) 
-    {
+    {       
 
-        for (int i = 0; i < 1000; i++)
+        System.out.print("Drawing image...");
+
+        Color color;
+        BufferedImage image = new BufferedImage(1280, 1024, BufferedImage.TYPE_INT_ARGB);
+
+        for (int x = 0; x < 1280; x++)
         {
-            int x = rnd.nextInt(1280);
-            int y = rnd.nextInt(1024);
-
-            Color color = new Color(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            g.setColor(color);
-            g.fillRect(x, y, rnd.nextInt(256), rnd.nextInt(256));
+            for (int y = 0; y < 1024; y++)
+            {
+                color = new Color(pixel[x][y], pixel[x][y], pixel[x][y]);
+                image.setRGB(x, y, color.getRGB());                
+            }
         }
+
+        g.drawImage(image, 0, 0, this);
+
+        System.out.println(" done.");
 
     }
 

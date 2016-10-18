@@ -8,6 +8,7 @@ public class SwingFrame extends JFrame
 {
 
     private JLabel statusbar;
+    private static int oct;
 
     public SwingFrame() 
     {
@@ -26,7 +27,7 @@ public class SwingFrame extends JFrame
         this.setVisible(true);
 
         statusbar = new JLabel("Ready to rock");
-        SwingPanel panel = new SwingPanel(this);
+        SwingPanel panel = new SwingPanel(this, oct);
 
         this.add(panel);
         this.add(statusbar, BorderLayout.SOUTH);
@@ -41,6 +42,11 @@ public class SwingFrame extends JFrame
 
     public static void main(String[] args) 
     {
+        if (args.length == 0)
+            oct = 3;
+        else
+            oct = Integer.parseInt(args[0]);
+
         SwingUtilities.invokeLater(new Runnable() 
             {
                 @Override
