@@ -31,9 +31,6 @@ class Calculator extends Thread
             case 8: x0 += 2 * 1280;                 x1 += 2 * 1280;                 break;
         }
 
-        x0 += 640;
-        x1 += 640;
-
         pixel = inpixel;
         step = instep;
     }
