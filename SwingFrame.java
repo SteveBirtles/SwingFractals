@@ -9,6 +9,7 @@ public class SwingFrame extends JFrame
 
     private JLabel statusbar;
     private static int oct, iterations;
+    private static double centreX, centreY, scale;
 
     public SwingFrame() 
     {
@@ -27,7 +28,7 @@ public class SwingFrame extends JFrame
         this.setVisible(true);
 
         statusbar = new JLabel("Ready to rock");
-        SwingPanel panel = new SwingPanel(this, oct, iterations);
+        SwingPanel panel = new SwingPanel(this, oct, iterations, centreX, centreY, scale);
 
         this.add(panel);
         this.add(statusbar, BorderLayout.SOUTH);
@@ -42,19 +43,17 @@ public class SwingFrame extends JFrame
 
     public static void main(String[] args) 
     {
-        if (args.length == 0)
-        {
-            oct = 3;
-            iterations = 50;
-        }
-        else
-        {
-            oct = Integer.parseInt(args[0]);
-            if (args.length > 1)
-            {
-                iterations = Integer.parseInt(args[1]);
-            }
-        }
+        oct = 0;
+        iterations = 500;
+        centreX = -1.108;
+        centreY = 0.230;
+        scale = 200000;
+
+        if (args.length > 0) oct = Integer.parseInt(args[0]);
+        if (args.length > 1) iterations = Integer.parseInt(args[1]);
+        if (args.length > 2) centreX = Double.parseDouble(args[2]);
+        if (args.length > 3) centreY = Double.parseDouble(args[3]);
+        if (args.length > 4) scale = Double.parseDouble(args[4]);
 
         SwingUtilities.invokeLater(new Runnable() 
             {

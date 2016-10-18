@@ -18,17 +18,20 @@ implements ActionListener {
     private JLabel statusbar;
     private Random rnd;
     private int step = 128;
-    private int oct;
-    private int iterations;
+    private int oct, iterations;
+    private double centreX, centreY, scale;
 
     public int pixel[][] = new int[1280][1024];
 
-    public SwingPanel(SwingFrame parent, int inoct, int initerations) 
+    public SwingPanel(SwingFrame parent, int inO, int inI, double inX, double inY, double inS) 
     {
         initSwingPanel(parent);
         rnd = new Random();
-        oct = inoct;
-        iterations = initerations;
+        oct = inO;
+        iterations = inI;
+        centreX = inX;
+        centreY = inY;
+        scale = inS;
     }
 
     private void initSwingPanel(SwingFrame parent) 
@@ -44,10 +47,10 @@ implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        Thread quarter1 = new Calculator(oct, 1, pixel, step, iterations);
-        Thread quarter2 = new Calculator(oct, 2, pixel, step, iterations);
-        Thread quarter3 = new Calculator(oct, 3, pixel, step, iterations);
-        Thread quarter4 = new Calculator(oct, 4, pixel, step, iterations);
+        Thread quarter1 = new Calculator(oct, 1, pixel, step, iterations, centreX, centreY, scale);
+        Thread quarter2 = new Calculator(oct, 2, pixel, step, iterations, centreX, centreY, scale);
+        Thread quarter3 = new Calculator(oct, 3, pixel, step, iterations, centreX, centreY, scale);
+        Thread quarter4 = new Calculator(oct, 4, pixel, step, iterations, centreX, centreY, scale);
 
         quarter1.start();
         quarter2.start();
@@ -65,7 +68,7 @@ implements ActionListener {
             System.out.println(ex.getMessage());
         }
 
-        statusbar.setText("Calculating " + (int) (100.0 / 128 * 1/((double) step / 128)) + "%");
+        statusbar.setText("Calculating (with " + iterations + " iterations) " + (int) (100.0 / 128 * 1/((double) step / 128)) + "%");
 
         if (step > 1)
         {
