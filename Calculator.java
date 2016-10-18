@@ -20,15 +20,15 @@ class Calculator extends Thread
 
         switch (oct)
         {
-            case 1: x0 += 1 * 1280; y0 -= 1024;     x1 += 1 * 1280; y1 -= 1024;     break;
-            case 3: x0 += 2 * 1280; y0 -= 1024;     x1 += 2 * 1280; y1 -= 1024;     break;
-            case 5: x0 += 3 * 1280; y0 -= 1024;     x1 += 3 * 1280; y1 -= 1024;     break;
-            case 7: x0 += 4 * 1280; y0 -= 1024;     x1 += 4 * 1280; y1 -= 1024;     break;
+            case 1: x0 += -1 * 1280; y0 -= 1024;     x1 += -1 * 1280; y1 -= 1024;     break;
+            case 3: x0 += 0 * 1280; y0 -= 1024;     x1 += 0 * 1280; y1 -= 1024;     break;
+            case 5: x0 += 1 * 1280; y0 -= 1024;     x1 += 1 * 1280; y1 -= 1024;     break;
+            case 7: x0 += 2 * 1280; y0 -= 1024;     x1 += 2 * 1280; y1 -= 1024;     break;
 
-            case 2: x0 += 1 * 1280;     	x1 += 1 * 1280;     break;
-            case 4: x0 += 2 * 1280;     	x1 += 2 * 1280;     break;
-            case 6: x0 += 3 * 1280;      	x1 += 3 * 1280;     break;
-            case 8: x0 += 4 * 1280;     	x1 += 4 * 1280;     break;
+            case 2: x0 += -1 * 1280;     	x1 += -1 * 1280;     break;
+            case 4: x0 += 0 * 1280;     	x1 += 0 * 1280;     break;
+            case 6: x0 += 1 * 1280;      	x1 += 1 * 1280;     break;
+            case 8: x0 += 2 * 1280;     	x1 += 2 * 1280;     break;
         }
 
         pixel = inpixel;
