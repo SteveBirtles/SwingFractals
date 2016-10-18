@@ -2,9 +2,9 @@ class Calculator extends Thread
 {
     private int x0, y0, x1, y1, xx, yy;
     private int[][] pixel;  
-    private int step;
+    private int step, iterations;
 
-    public Calculator(int oct, int quad, int inpixel[][], int instep)
+    public Calculator(int oct, int quad, int inpixel[][], int instep, int initerations)
     {        
 
         switch (quad)
@@ -25,14 +25,15 @@ class Calculator extends Thread
             case 5: x0 += -1 * 1280; y0 -= 1024;     x1 += -1 * 1280; y1 -= 1024;     break;
             case 7: x0 += 0 * 1280; y0 -= 1024;     x1 += 0 * 1280; y1 -= 1024;     break;
 
-            case 2: x0 += -3 * 1280;     	x1 += -3 * 1280;     break;
-            case 4: x0 += -2 * 1280;     	x1 += -2 * 1280;     break;
-            case 6: x0 += -1 * 1280;      	x1 += -1 * 1280;     break;
-            case 8: x0 += 0 * 1280;     	x1 += 0 * 1280;     break;
+            case 2: x0 += -3 * 1280;        x1 += -3 * 1280;     break;
+            case 4: x0 += -2 * 1280;        x1 += -2 * 1280;     break;
+            case 6: x0 += -1 * 1280;        x1 += -1 * 1280;     break;
+            case 8: x0 += 0 * 1280;         x1 += 0 * 1280;     break;
         }
 
         pixel = inpixel;
         step = instep;
+        iterations = initerations;
     }
 
     public void run()
@@ -44,6 +45,8 @@ class Calculator extends Thread
             for (double y = y0; y < y1; y += step)
             {
 
+                if (pixel[(int) x - x0 + xx][(int) y - y0 + yy] < 0) continue;
+
                 double xi = x / 2000.0;
                 double yi = y / 2000.0;
 
@@ -51,7 +54,7 @@ class Calculator extends Thread
                 Complex c=new Complex(xi,yi);
                 int i;
 
-                for(i = 0; i < 255 && (z.getReal()<=2.0E+307||z.getImaginary()<=2.0E+307); i++){
+                for(i = 0; i < iterations && (z.getReal()<=2.0E+307||z.getImaginary()<=2.0E+307); i++){
                     z = (z.square()).plus(c);
                 }              
 
@@ -59,7 +62,10 @@ class Calculator extends Thread
                 {
                     for (int v = 0; v < step; v++)
                     {
-                        pixel[(int) x - x0 + u + xx][(int) y - y0 + v + yy] = i * 6;
+                        if (u == 0 && v == 0) 
+                            pixel[(int) x - x0 + u + xx][(int) y - y0 + v + yy] = -i * 6;
+                        else
+                            pixel[(int) x - x0 + u + xx][(int) y - y0 + v + yy] = i * 6;
                     }
                 }
 

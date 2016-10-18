@@ -19,14 +19,16 @@ implements ActionListener {
     private Random rnd;
     private int step = 128;
     private int oct;
+    private int iterations;
 
     public int pixel[][] = new int[1280][1024];
 
-    public SwingPanel(SwingFrame parent, int inoct) 
+    public SwingPanel(SwingFrame parent, int inoct, int initerations) 
     {
         initSwingPanel(parent);
         rnd = new Random();
         oct = inoct;
+        iterations = initerations;
     }
 
     private void initSwingPanel(SwingFrame parent) 
@@ -42,10 +44,10 @@ implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        Thread quarter1 = new Calculator(oct, 1, pixel, step);
-        Thread quarter2 = new Calculator(oct, 2, pixel, step);
-        Thread quarter3 = new Calculator(oct, 3, pixel, step);
-        Thread quarter4 = new Calculator(oct, 4, pixel, step);
+        Thread quarter1 = new Calculator(oct, 1, pixel, step, iterations);
+        Thread quarter2 = new Calculator(oct, 2, pixel, step, iterations);
+        Thread quarter3 = new Calculator(oct, 3, pixel, step, iterations);
+        Thread quarter4 = new Calculator(oct, 4, pixel, step, iterations);
 
         quarter1.start();
         quarter2.start();
@@ -96,13 +98,13 @@ implements ActionListener {
         {
             for (int y = 0; y < 1024; y++)
             {
-                double z = (double) pixel[x][y] / 256.0;
+                double z = Math.abs((double) pixel[x][y] / (double) iterations);
                 if (z < 1)      {           color = new Color((int) (256 * z), 0, 0); }
                 else if (z < 2) {z -= 1;    color = new Color(255, (int) (255 * z), 0);}
                 else if (z < 3) {z -= 2;    color = new Color((int) (255 * (1 - z)), 255, 0);}
                 else if (z < 4) {z -= 3;    color = new Color(0, 255, (int) (255 * z));}
                 else if (z < 5) {z -= 4;    color = new Color(0, (int) (255 * (1 - z)), 255);}
-                else            {z -= 5;    color = new Color(0, 0, (int) (255 * (1 - z)));}          
+                else {z -= 5;    color = new Color(0, 0, (int) (255 * (1 - z)));}                          
 
                 image.setRGB(x, y, color.getRGB());                
             }
