@@ -68,7 +68,29 @@ implements ActionListener {
             System.out.println(ex.getMessage());
         }
 
-        statusbar.setText("Calculating (with " + iterations + " iterations) " + (int) (100.0 / 128 * 1/((double) step / 128)) + "%");
+	double x0 = centreX;
+	double y0 = centreY;
+
+        switch (oct)
+        {
+
+            case 0: x0 += -0.5 * 1280 / scale;     y0 -= 0.5 * 1024 / scale;    break;
+
+            case 1: x0 += -2 * 1280 / scale; y0 -= 1024 / scale;   break;
+            case 3: x0 += -1 * 1280 / scale; y0 -= 1024 / scale;   break;
+            case 5:                          y0 -= 1024 / scale;   break;
+            case 7: x0 += 1 * 1280 / scale;  y0 -= 1024 / scale;   break;
+
+            case 2: x0 += -2 * 1280 / scale;       break;
+            case 4: x0 += -1 * 1280 / scale;       break;
+            case 6:                                break;
+            case 8: x0 += 1 * 1280/ scale;         break;
+        }
+
+	x0 += 640 / scale;
+	y0 += 512 / scale;
+
+        statusbar.setText("Calculating (with " + iterations + " iterations) " + (int) (100.0 / 128 * 1/((double) step / 128)) + "%  Centre: " + x0 + ", " + y0);
 
         if (step > 1)
         {
