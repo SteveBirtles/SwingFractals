@@ -149,11 +149,11 @@ implements ActionListener {
             for (int y = 0; y < 1024; y++)
             {
                 double z = Math.abs((double) pixel[x][y] / (double) iterations);
-//                if (z < 1)      {           color = new Color((int) (256 * z), 0, 255); }
-//                else if (z < 2) {z -= 1;    color = new Color(255, (int) (255 * z), (int) (255 * (1 - z)));}
+                if (z < 1)      {           color = new Color((int) (256 * z), 0, 255); }
+                       else if (z < 2) {z -= 1;    color = new Color(255, (int) (255 * z), (int) (255 * (1 - z)));}
 
-		if (z < 1)      {           color = new Color((int) (256 * z), 0, 255); }
-                else if (z < 2) {z -= 1;    color = new Color(255, (int) (255 * z), (int) (255 * (1 - z)));}
+//		if (z < 1)      {           color = new Color((int) (256 * z), 0, 255); }
+  //              else if (z < 2) {z -= 1;    color = new Color(255, (int) (255 * z), (int) (255 * (1 - z)));}
                 
 
                 else if (z < 3) {z -= 2;    color = new Color((int) (255 * (1 - z)), 255, 0);}
