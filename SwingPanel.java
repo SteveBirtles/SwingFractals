@@ -70,9 +70,9 @@ implements ActionListener {
             System.out.println(ex.getMessage());
         }
 
-	double x0 = centreX;
-	double y0 = centreY;
-
+		double x0 = centreX;
+		double y0 = centreY;
+	
         switch (oct)
         {
 
@@ -89,10 +89,32 @@ implements ActionListener {
             case 8: x0 += 1 * 1280/ scale;         break;
         }
 
-	x0 += 640 / scale;
-	y0 += 512 / scale;
+		double x1 = x0 + 1280 / scale;
+		double y1 = y0 + 1024 / scale;
 
-        statusbar.setText("Calculating (with " + iterations + " iterations) " + (int) (100.0 / 128 * 1/((double) step / 128)) + "%  Centre: " + x0 + ", " + y0);
+		String displayX0 = Double.toString(x0);
+		if (x0 >= 0) displayX0 = "+" + displayX0;
+		if (!displayX0.contains(".")) displayX0 += ".";
+		displayX0 = (displayX0 + "00000000000").substring(0, 10);
+		
+		String displayY0 = Double.toString(y0);
+		if (y0 >= 0) displayY0 = "+" + displayY0;
+		if (!displayY0.contains(".")) displayY0 += ".";
+		displayY0 = (displayY0 + "00000000000").substring(0, 10);
+		
+		String displayX1 = Double.toString(x1);
+		if (x1 >= 0) displayX1 = "+" + displayX1;
+		if (!displayX1.contains(".")) displayX1 += ".";
+		displayX1 = (displayX1 + "00000000000").substring(0, 10);
+		
+		String displayY1 = Double.toString(y1);
+		if (y1 >= 0) displayY1 = "+" + displayY1;
+		if (!displayY1.contains(".")) displayY1 += ".";
+		displayY1 = (displayY1 + "00000000000").substring(0, 10);
+
+        statusbar.setText("Calculating (with " + iterations + " iterations) " 
+        		+ (int) (100.0 / 128 * 1/((double) step / 128)) + "% "
+				+ "    ["+ displayX0 + ", " + displayY0 + "] --- [" + displayX1 + ", " + displayY1 + "]");
 
         if (step > 1)
         {
