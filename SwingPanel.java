@@ -8,8 +8,10 @@ import java.awt.event.KeyEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.imageio.*;
 import java.util.Random;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class SwingPanel extends JPanel 
 implements ActionListener {
@@ -139,6 +141,20 @@ implements ActionListener {
         g.drawImage(image, 0, 0, this);
 
         System.out.println(" done.");
+
+	if (step == 1) 
+	{
+		try
+		{
+			File outputfile = new File(oct + ".png");
+			ImageIO.write(image, "png", outputfile);
+		}
+		catch (Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+	}
+
 
     }
 
