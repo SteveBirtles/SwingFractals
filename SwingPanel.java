@@ -72,7 +72,7 @@ implements ActionListener {
 
 	double x0 = centreX;
 	double y0 = centreY;
-
+	
         switch (oct)
         {
 
@@ -89,10 +89,11 @@ implements ActionListener {
             case 8: x0 += 1 * 1280/ scale;         break;
         }
 
-	x0 += 640 / scale;
-	y0 += 512 / scale;
-
-        statusbar.setText("Calculating (with " + iterations + " iterations) " + (int) (100.0 / 128 * 1/((double) step / 128)) + "%  Centre: " + x0 + ", " + y0);
+	double x1 = x0 + 1280 / scale;
+	double y1 = y0 + 1024 / scale;
+	
+        statusbar.setText("Calculating (with " + iterations + " iterations) " + (int) (100.0 / 128 * 1/((double) step / 128)) + "% "
+		+ " ("+ x0 + ", " + y0 + ")-(" + x1, + ", " + y1 + ")");
 
         if (step > 1)
         {
